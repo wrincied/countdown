@@ -2,8 +2,8 @@ const gulp = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const sourcemaps = require('gulp-sourcemaps');
 const connect = require('gulp-connect');
+const del = require('del'); // если ещё не установлен — см. ниже
 
-// Пути
 const paths = {
   html: 'src/*.html',
   scss: 'src/scss/**/*.scss',
@@ -37,24 +37,35 @@ function scripts() {
     .pipe(connect.reload());
 }
 
+// COPY .nojekyll
+function nojekyll() {
+  return gulp.src('.nojekyll')
+    .pipe(gulp.dest(paths.dist));
+}
+
+// Очистка dist
+function clean() {
+  return del([paths.dist]);
+}
+
 // Сервер
 function server() {
   connect.server({
     root: paths.dist,
-    livereload: true,
-    port: 3000
+    livereload: true
   });
 }
 
-// Наблюдение
-function watch() {
+// Watch
+function watchFiles() {
   gulp.watch(paths.html, html);
   gulp.watch(paths.scss, styles);
   gulp.watch(paths.js, scripts);
 }
 
-// Основная задача
-exports.default = gulp.series(
-  gulp.parallel(html, styles, scripts),
-  gulp.parallel(server, watch)
-);
+const build = gulp.series(clean, gulp.parallel(html, styles, scripts, nojekyll));
+const dev = gulp.series(build, gulp.parallel(server, watchFiles));
+
+exports.clean = clean;
+exports.build = build;
+exports.default = dev;

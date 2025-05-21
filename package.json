@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-     "dev": "gulp"
+    "dev": "gulp"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "del": "^8.0.0",
     "gulp": "^5.0.0",
     "gulp-connect": "^5.7.0",
     "gulp-sass": "^6.0.1",
