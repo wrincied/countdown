@@ -2,7 +2,6 @@ const gulp = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const sourcemaps = require('gulp-sourcemaps');
 const connect = require('gulp-connect');
-const del = require('del'); // если ещё не установлен — см. ниже
 
 const paths = {
   html: 'src/*.html',
@@ -43,11 +42,6 @@ function nojekyll() {
     .pipe(gulp.dest(paths.dist));
 }
 
-// Очистка dist
-function clean() {
-  return del([paths.dist]);
-}
-
 // Сервер
 function server() {
   connect.server({
@@ -63,9 +57,8 @@ function watchFiles() {
   gulp.watch(paths.js, scripts);
 }
 
-const build = gulp.series(clean, gulp.parallel(html, styles, scripts, nojekyll));
+const build = gulp.series( gulp.parallel(html, styles, scripts, nojekyll));
 const dev = gulp.series(build, gulp.parallel(server, watchFiles));
 
-exports.clean = clean;
 exports.build = build;
 exports.default = dev;
