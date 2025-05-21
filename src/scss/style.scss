@@ -1,73 +1,141 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
- 
- body{
-    background-image: url(/img/photo_2025-05-20_23-22-53.jpg);
-    max-width: 100%;
-    height: auto;
-    background-repeat: no-repeat;
-    background-size: cover;       // растянуть по экрану
-    background-position: center;  // по центру
-    font-family: "Lato", sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      color:azure;
-      .timer-container {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-content: center;
-    
-        .timer-title {
-          font-size: 2rem;
-          margin-bottom: 30px;
-        }
-    
-        .timer {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 2rem;
-          flex-wrap: wrap;
-    
-          .unit{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-    
-            .value {
-                color:azure;
-              font-size: 3rem;
-              font-weight: bold;
-            }
-    
-            .label {
-              font-size: 1.2rem;
-              margin-top: 0.3rem;
-            }
-          }
-        }
-        .timer-analog{
-          .timer-analog__text{
-            font-size: 25px;
-          }
-            .value{
-                color:azure;
-                font-size: 3rem;
-                font-weight: bold;
-            }
-        }
-        .timer-text__container{
-            margin-top: 15px;
-            .container-text{
-              max-width: 800px;
-              line-height: 40px;
-                font-size: 17px;
-            }
-        }
-      }
-    }
+      @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
+*{
+  box-sizing: border-box;
+
+}
+      body {
+  overflow-x: hidden;
+  background-image: url("../img/file.svg");
+    background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  max-width: 100%;
+  height: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center 100px;
+  font-family: "Lato", sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: azure;
+}
+body .timer-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+body .timer-container .timer-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+body .timer-container .timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+body .timer-container .timer .unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body .timer-container .timer .unit .value {
+  color: azure;
+  font-size: 3rem;
+  font-weight: bold;
+}
+body .timer-container .timer .unit .label {
+  font-size: 1.2rem;
+  margin-top: 0.3rem;
+}
+body .timer-container .timer-analog .timer-analog__text {
+  font-size: 25px;
+}
+body .timer-container .timer-analog .value {
+  color: azure;
+  font-size: 3rem;
+  font-weight: bold;
+}
+body .timer-container .timer-text__container {
+  margin-top: 15px;
+}
+body .timer-container .timer-text__container .container-text {
+  max-width: 800px;
+  line-height: 40px;
+  font-size: 17px;
+}
+/*# sourceMappingURL=style.css.map */
+@media (max-width: 768px) {
+
+  body {
+    padding: 1rem;
+    background-position: top center;
+  }
+  body .timer-container .timer .unit{
+    flex-direction: row;
+    gap: 1rem;
+  }
+  .timer-container .timer-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .timer-container .timer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .timer-container .timer .unit .value {
+    font-size: 2rem;
+  }
+
+  .timer-container .timer .unit .label {
+    font-size: 1rem;
+  }
+
+  .timer-container .timer-analog .value {
+    font-size: 2rem;
+  }
+
+  .timer-container .timer-analog .timer-analog__text {
+    font-size: 20px;
+  }
+
+  .container-text {
+    max-width: 100%;
+    font-size: 16px;
+    line-height: 28px;
+    text-align: justify;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .timer-container .timer-title {
+    font-size: 1.2rem;
+  }
+
+  .timer-container .timer .unit .value {
+    font-size: 1.5rem;
+  }
+
+  .timer-container .timer .unit .label {
+    font-size: 0.9rem;
+  }
+
+  .timer-container .timer-analog .timer-analog__text {
+    font-size: 18px;
+  }
+
+  .container-text {
+    font-size: 15px;
+    line-height: 26px;
+  }
+  
+}
