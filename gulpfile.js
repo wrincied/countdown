@@ -3,16 +3,29 @@ const sass = require('gulp-sass')(require('sass'));
 const sourcemaps = require('gulp-sourcemaps');
 const connect = require('gulp-connect');
 
+// ESM-compatible del
+const del = async (paths) => {
+  const { deleteAsync } = await import('del');
+  return deleteAsync(paths);
+};
+
 const paths = {
   html: 'src/*.html',
   scss: 'src/scss/**/*.scss',
   js: 'src/js/**/*.js',
+  img: 'src/img/**/*',
   dist: 'dist',
   cssDest: 'dist/css',
-  jsDest: 'dist/js'
+  jsDest: 'dist/js',
+  imgDest: 'dist/img'
 };
 
-// HTML
+// Очистка dist
+async function clean() {
+  await del([paths.dist]);
+}
+
+// Копирование index.html
 function html() {
   return gulp.src(paths.html)
     .pipe(gulp.dest(paths.dist))
@@ -29,14 +42,21 @@ function styles() {
     .pipe(connect.reload());
 }
 
-// JS
+// Копирование JS
 function scripts() {
   return gulp.src(paths.js)
     .pipe(gulp.dest(paths.jsDest))
     .pipe(connect.reload());
 }
 
-// COPY .nojekyll
+// Копирование изображений
+function images() {
+  return gulp.src(paths.img)
+    .pipe(gulp.dest(paths.imgDest))
+    .pipe(connect.reload());
+}
+
+// Копирование .nojekyll
 function nojekyll() {
   return gulp.src('.nojekyll')
     .pipe(gulp.dest(paths.dist));
@@ -50,15 +70,19 @@ function server() {
   });
 }
 
-// Watch
+// Вотчеры
 function watchFiles() {
   gulp.watch(paths.html, html);
   gulp.watch(paths.scss, styles);
   gulp.watch(paths.js, scripts);
+  gulp.watch(paths.img, images);
 }
 
-const build = gulp.series( gulp.parallel(html, styles, scripts, nojekyll));
+// Сборка
+const build = gulp.series(clean, gulp.parallel(html, styles, scripts, images, nojekyll));
 const dev = gulp.series(build, gulp.parallel(server, watchFiles));
 
+// Экспортируем задачи
+exports.clean = clean;
 exports.build = build;
 exports.default = dev;
