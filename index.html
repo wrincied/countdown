@@ -3,9 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="/js/index.js" defer></script>
     <title>Дневник?</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+body {
+  background-image: url(/img/photo_2025-05-20_23-22-53.jpg);
+  max-width: 100%;
+  height: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  font-family: "Lato", sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: azure;
+}
+body .timer-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+body .timer-container .timer-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+body .timer-container .timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+body .timer-container .timer .unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body .timer-container .timer .unit .value {
+  color: azure;
+  font-size: 3rem;
+  font-weight: bold;
+}
+body .timer-container .timer .unit .label {
+  font-size: 1.2rem;
+  margin-top: 0.3rem;
+}
+body .timer-container .timer-analog .timer-analog__text {
+  font-size: 25px;
+}
+body .timer-container .timer-analog .value {
+  color: azure;
+  font-size: 3rem;
+  font-weight: bold;
+}
+body .timer-container .timer-text__container {
+  margin-top: 15px;
+}
+body .timer-container .timer-text__container .container-text {
+  max-width: 800px;
+  line-height: 40px;
+  font-size: 17px;
+}
+/*# sourceMappingURL=style.css.map */
+
+    </style>
 </head>
 <body>
     <main class="timer-container">
@@ -30,6 +96,51 @@
         </div>
       </main>
 
-      
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const targetDate = new Date('2025-06-24T07:00:00+04:00');
+  
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const msEl = document.getElementById('milliseconds');
+    const timerContainer = document.getElementById('timer');
+    const hoursprodaysEl= document.getElementById('houerproday')
+  
+    function pad(n, length = 2) {
+      return String(n).padStart(length, '0');
+    }
+  
+    function updateTimer() {
+      const now = new Date();
+      const diff = targetDate - now;
+  
+      if (diff <= 0) {
+        timerContainer.innerHTML = `<div style="font-size:2rem;">🎉 МЫ СПРАВИЛИСЬ!!!!! 🎉</div>`;
+        clearInterval(interval);
+        return;
+      }
+  
+      const ms = diff % 1000;
+      const seconds = Math.floor((diff / 1000) % 60);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const hours = Math.floor((diff / 1000 / 60 / 60) % 24);
+      const days = Math.floor(diff / 1000 / 60 / 60 / 24);
+      const houerproday = Math.floor(diff / 1000 / 60 / 60);
+  
+      daysEl.textContent = days;
+      hoursEl.textContent = pad(hours);
+      minutesEl.textContent = pad(minutes);
+      secondsEl.textContent = pad(seconds);
+      msEl.textContent = pad(ms, 3);
+      hoursprodaysEl.textContent = pad(houerproday)
+    }
+  
+    const interval = setInterval(updateTimer, 50); // обновляем каждые 50 мс
+    updateTimer();
+  });
+  
+      </script>
 </body>
 </html>
